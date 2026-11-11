@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Patas & Mimos — Pet Shop, Banhos e Tosquias</title>
+<meta name="description" content="Pet shop de bairro: alimentação, acessórios, banhos e tosquias para cães e gatos. Marque já pelo WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#fffaf5;
+    --soft:#fff1e6;
+    --mint:#e3f6f1;
+    --teal:#13a89e;
+    --teal-dark:#0d7f78;
+    --orange:#ff8a3d;
+    --yellow:#ffd166;
+    --ink:#1f2d3d;
+    --muted:#5f6b7a;
+    --white:#fff;
+    --radius:22px;
+    --shadow:0 12px 32px rgba(31,45,61,.10);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:Nunito,system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+  img{display:block;width:100%;height:100%;object-fit:cover;color:transparent}
+  a{color:inherit;text-decoration:none}
+  h1,h2,h3,h4{font-family:Fredoka,system-ui,sans-serif;line-height:1.15;font-weight:600}
+  .container{width:min(1180px,92%);margin-inline:auto}
+  section{padding:96px 0}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);background:var(--mint);padding:6px 14px;border-radius:999px;margin-bottom:16px}
+  .section-head{text-align:center;max-width:640px;margin:0 auto 52px}
+  .section-head h2{font-size:clamp(2rem,4vw,2.9rem)}
+  .section-head p{color:var(--muted);margin-top:14px;font-size:1.08rem}
+  .ph{background:linear-gradient(135deg,#ffe0c7,#ffd0a8);overflow:hidden;position:relative}
+  .ph img{transition:transform .7s ease}
+
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:999px;font-weight:700;font-size:1rem;transition:transform .2s,background .2s,box-shadow .2s;border:0;cursor:pointer}
+  .btn-primary{background:var(--orange);color:var(--white);box-shadow:0 10px 22px rgba(255,138,61,.35)}
+  .btn-primary:hover{transform:translateY(-2px);background:#f2762a}
+  .btn-outline{background:var(--white);color:var(--ink);box-shadow:var(--shadow)}
+  .btn-outline:hover{transform:translateY(-2px)}
+  .btn-wa{background:#25d366;color:#fff}
+  .btn-wa:hover{transform:translateY(-2px);background:#1eb457}
+
+  /* NAV */
+  header{position:sticky;top:0;z-index:50;background:rgba(255,250,245,.92);backdrop-filter:blur(10px);border-bottom:1px solid rgba(31,45,61,.06)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:78px}
+  .logo{font-family:Fredoka,sans-serif;font-size:1.6rem;font-weight:700;display:flex;align-items:center;gap:8px}
+  .logo b{color:var(--orange)}
+  .logo .paw{width:40px;height:40px;border-radius:12px;background:var(--teal);display:grid;place-items:center;font-size:1.2rem}
+  .nav ul{display:flex;gap:30px;list-style:none;font-weight:700}
+  .nav ul a:hover{color:var(--teal)}
+  .menu-toggle{display:none;background:none;border:0;font-size:1.8rem;cursor:pointer;color:var(--ink)}
+
+
+  /* IDIOMAS */
+  .nav-right{display:flex;align-items:center;gap:12px}
+  .lang{position:relative}
+  .lang-btn{display:flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;border:2px solid #f1e4d8;background:var(--white);color:var(--ink);font:inherit;font-weight:700;font-size:.9rem;cursor:pointer;transition:.2s}
+  .lang-btn:hover{border-color:var(--teal)}
+  .flag{width:22px;height:16px;object-fit:cover;border-radius:3px;box-shadow:0 0 0 1px rgba(0,0,0,.08);flex:none}
+  .caret{font-size:.7rem;opacity:.7}
+  .nav ul.lang-menu{display:block;gap:0;font-weight:600}
+  .lang-menu{position:absolute;right:0;top:calc(100% + 10px);background:var(--white);border-radius:16px;box-shadow:0 16px 40px rgba(31,45,61,.16);list-style:none;padding:8px;min-width:200px;opacity:0;visibility:hidden;transform:translateY(-6px);transition:.2s;z-index:70}
+  .lang.open .lang-menu{opacity:1;visibility:visible;transform:none}
+  .lang-menu button{display:flex;align-items:center;gap:12px;width:100%;padding:10px 12px;border:0;background:none;border-radius:10px;font:inherit;font-size:.95rem;color:var(--ink);cursor:pointer;text-align:left}
+  .lang-menu button:hover{background:var(--bg)}
+  .lang-menu button.active{background:var(--mint);font-weight:700}
+
+  /* HERO */
+  .hero{padding:60px 0 90px;position:relative;overflow:hidden}
+  .hero::before{content:"";position:absolute;width:620px;height:620px;border-radius:50%;background:var(--soft);right:-120px;top:-120px;z-index:-1}
+  .hero-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:60px;align-items:center}
+  .hero h1{font-size:clamp(2.6rem,5.8vw,4.4rem);margin-bottom:20px}
+  .hero h1 span{color:var(--teal);position:relative;white-space:nowrap}
+  .hero h1 span::after{content:"";position:absolute;left:0;right:0;bottom:4px;height:12px;background:var(--yellow);opacity:.6;z-index:-1;border-radius:6px}
+  .hero p{font-size:1.18rem;color:var(--muted);max-width:520px;margin-bottom:32px}
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap}
+  .trust{display:flex;align-items:center;gap:14px;margin-top:40px}
+  .avatars{display:flex}
+  .avatars .ph{width:46px;height:46px;border-radius:50%;border:3px solid var(--bg);margin-left:-12px}
+  .avatars .ph:first-child{margin-left:0}
+  .trust small{display:block;color:var(--muted)}
+  .hero-visual{position:relative;height:540px}
+  .hero-visual .main{position:absolute;inset:0 0 0 40px;border-radius:200px 200px var(--radius) var(--radius);box-shadow:var(--shadow)}
+  .float{position:absolute;background:var(--white);border-radius:18px;padding:14px 18px;box-shadow:var(--shadow);display:flex;align-items:center;gap:12px;font-weight:700;animation:bob 4s ease-in-out infinite}
+  .float small{display:block;color:var(--muted);font-weight:600;font-size:.82rem}
+  .float .ic{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-size:1.3rem}
+  .f1{left:0;top:70px}.f1 .ic{background:var(--mint)}
+  .f2{right:-10px;bottom:70px;animation-delay:1.5s}.f2 .ic{background:var(--soft)}
+  .f3{left:10px;bottom:20px;animation-delay:.8s;padding:8px}
+  .f3 .ph{width:90px;height:90px;border-radius:14px}
+  @keyframes bob{50%{transform:translateY(-10px)}}
+
+  /* CATEGORIAS */
+  .cats{display:grid;grid-template-columns:repeat(5,1fr);gap:20px}
+  .cat{text-align:center;cursor:pointer}
+  .cat .ph{aspect-ratio:1;border-radius:50%;margin-bottom:14px;border:6px solid var(--white);box-shadow:var(--shadow);transition:transform .3s}
+  .cat:hover .ph{transform:translateY(-6px) rotate(-3deg)}
+  .cat:hover img{transform:scale(1.08)}
+  .cat h3{font-size:1.25rem}
+  .cat small{color:var(--muted)}
+
+  /* SERVIÇOS */
+  .services{background:var(--mint)}
+  .svc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+  .svc{background:var(--white);border-radius:var(--radius);overflow:hidden;box-shadow:0 6px 18px rgba(19,168,158,.08);transition:transform .3s}
+  .svc:hover{transform:translateY(-6px)}
+  .svc:hover img{transform:scale(1.07)}
+  .svc .ph{height:190px}
+  .svc-body{padding:22px}
+  .svc h3{font-size:1.3rem;margin-bottom:6px}
+  .svc p{color:var(--muted);font-size:.95rem;margin-bottom:14px}
+  .svc .from{font-weight:700;color:var(--teal)}
+  .svc .from b{font-family:Fredoka,sans-serif;font-size:1.4rem;color:var(--ink)}
+
+  /* PRODUTOS */
+  .tabs{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:40px}
+  .tab{padding:10px 22px;border-radius:999px;border:2px solid #f1e4d8;background:var(--white);font:inherit;font-weight:700;cursor:pointer;color:var(--ink);transition:.2s}
+  .tab.active,.tab:hover{background:var(--teal);border-color:var(--teal);color:var(--white)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:24px}
+  .card{background:var(--white);border-radius:var(--radius);overflow:hidden;box-shadow:0 4px 14px rgba(31,45,61,.06);transition:transform .3s,box-shadow .3s}
+  .card:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+  .card:hover img{transform:scale(1.07)}
+  .card .ph{height:210px}
+  .badge{position:absolute;top:12px;left:12px;z-index:2;background:var(--orange);color:#fff;font-size:.78rem;font-weight:700;padding:5px 12px;border-radius:999px}
+  .badge.green{background:var(--teal)}
+  .card-body{padding:18px 20px 22px}
+  .card small.kind{color:var(--teal);font-weight:700;text-transform:uppercase;font-size:.75rem;letter-spacing:.06em}
+  .card h3{font-size:1.15rem;margin:4px 0 6px}
+  .card p{color:var(--muted);font-size:.92rem}
+  .card .row{display:flex;justify-content:space-between;align-items:center;margin-top:14px}
+  .price{font-family:Fredoka,sans-serif;font-size:1.4rem;font-weight:600}
+  .price s{font-size:.9rem;color:var(--muted);font-weight:400;margin-right:6px}
+  .add{width:42px;height:42px;border-radius:12px;border:0;background:var(--soft);font-size:1.2rem;cursor:pointer;transition:.2s}
+  .add:hover{background:var(--orange);color:#fff}
+  .card.hide{display:none}
+
+  /* PORQUÊ */
+  .why{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}
+  .why-imgs{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .why-imgs .ph{border-radius:var(--radius);height:250px;box-shadow:var(--shadow)}
+  .why-imgs .ph:nth-child(2){margin-top:50px}
+  .why-imgs .ph:nth-child(3){margin-top:-50px}
+  .why h2{font-size:clamp(2rem,4vw,2.8rem);margin-bottom:18px}
+  .why > div > p{color:var(--muted);font-size:1.06rem;margin-bottom:26px}
+  .points{display:grid;gap:16px}
+  .point{display:flex;gap:16px;background:var(--white);padding:18px;border-radius:18px;box-shadow:0 4px 14px rgba(31,45,61,.05)}
+  .point .ic{flex:none;width:50px;height:50px;border-radius:14px;display:grid;place-items:center;font-size:1.5rem;background:var(--soft)}
+  .point:nth-child(2) .ic{background:var(--mint)}
+  .point:nth-child(3) .ic{background:#fff6d6}
+  .point strong{font-size:1.05rem}
+  .point p{color:var(--muted);font-size:.93rem}
+
+  /* GALERIA CLIENTES */
+  .friends{background:var(--soft)}
+  .friends-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+  .friend{position:relative;border-radius:18px;aspect-ratio:3/4}
+  .friend span{position:absolute;left:10px;bottom:10px;z-index:2;background:rgba(255,255,255,.92);font-weight:700;font-size:.85rem;padding:4px 10px;border-radius:999px}
+
+  /* TESTEMUNHOS */
+  .reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .review{background:var(--white);border-radius:var(--radius);padding:28px;box-shadow:0 4px 14px rgba(31,45,61,.06)}
+  .stars{color:#ffb400;letter-spacing:3px;margin-bottom:10px}
+  .review p{margin-bottom:18px;font-size:1.02rem}
+  .who{display:flex;align-items:center;gap:12px}
+  .who .ph{width:48px;height:48px;border-radius:50%}
+  .who small{display:block;color:var(--muted)}
+
+  /* CTA */
+  .cta{padding:0 0 96px}
+  .cta-box{background:var(--teal);color:var(--white);border-radius:32px;display:grid;grid-template-columns:1.3fr 1fr;overflow:hidden;position:relative}
+  .cta-text{padding:60px}
+  .cta h2{font-size:clamp(2rem,4vw,2.8rem);margin-bottom:14px}
+  .cta p{opacity:.92;font-size:1.1rem;margin-bottom:28px}
+  .cta .ph{min-height:340px}
+  .cta .eyebrow{background:rgba(255,255,255,.18);color:#fff}
+
+  /* VISITE */
+  .visit{display:grid;grid-template-columns:1fr 1.2fr;gap:40px}
+  .info-card{background:var(--white);border-radius:var(--radius);padding:40px;box-shadow:var(--shadow)}
+  .info-card h2{font-size:2.2rem;margin-bottom:24px}
+  .info-row{display:flex;gap:14px;margin-bottom:20px}
+  .info-row .ic{font-size:1.4rem}
+  .info-row strong{display:block}
+  .info-row span{color:var(--muted)}
+  .hours{width:100%;border-collapse:collapse}
+  .hours td{padding:4px 0;color:var(--muted);font-size:.95rem}
+  .hours td:last-child{text-align:right;color:var(--ink);font-weight:700}
+  .hours tr.today td{color:var(--teal);font-weight:700}
+  .map{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);min-height:420px}
+  .map iframe{width:100%;height:100%;min-height:420px;border:0}
+
+  footer{background:var(--ink);color:#c9d2dc;padding:60px 0 28px}
+  .foot{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;margin-bottom:36px}
+  footer .logo{color:#fff;margin-bottom:12px}
+  footer h4{color:#fff;margin-bottom:12px;font-size:1.1rem}
+  footer li{list-style:none;margin-bottom:8px}
+  footer a:hover{color:var(--yellow)}
+  .copy{border-top:1px solid rgba(255,255,255,.1);padding-top:22px;text-align:center;font-size:.85rem;opacity:.7}
+
+  .wa-float{position:fixed;right:22px;bottom:22px;width:60px;height:60px;border-radius:50%;background:#25d366;color:#fff;display:grid;place-items:center;font-size:1.7rem;box-shadow:0 10px 24px rgba(37,211,102,.45);z-index:60;transition:transform .2s}
+  .wa-float:hover{transform:scale(1.08)}
+
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  @media (max-width:1000px){
+    .hero-grid,.why,.visit,.cta-box{grid-template-columns:1fr}
+    .hero-visual{height:440px}
+    .svc-grid{grid-template-columns:repeat(2,1fr)}
+    .cats{grid-template-columns:repeat(3,1fr)}
+    .friends-grid{grid-template-columns:repeat(3,1fr)}
+    .reviews-grid{grid-template-columns:1fr}
+    .foot{grid-template-columns:1fr}
+    .cta-text{padding:44px 32px}
+  }
+  @media (max-width:760px){
+    .nav ul{display:none}
+    .nav ul.open{display:flex;flex-direction:column;position:absolute;top:78px;left:0;right:0;background:var(--bg);padding:22px 6%;gap:16px;box-shadow:0 12px 20px rgba(0,0,0,.06)}
+    .menu-toggle{display:block}
+    .nav .btn{display:none}
+    section{padding:70px 0}
+    .f2{right:0}
+  }
+  @media (max-width:540px){
+    .svc-grid{grid-template-columns:1fr}
+    .cats{grid-template-columns:repeat(2,1fr)}
+    .friends-grid{grid-template-columns:repeat(2,1fr)}
+    .hero-visual{height:380px}
+    .f3{display:none}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a href="#inicio" class="logo"><span class="paw">🐾</span>Patas <b>&</b> Mimos</a>
+    <ul id="menu">
+      <li><a href="#animais" data-i18n="k0">Animais</a></li>
+      <li><a href="#servicos" data-i18n="k1">Serviços</a></li>
+      <li><a href="#produtos" data-i18n="k2">Loja</a></li>
+      <li><a href="#sobre" data-i18n="k3">Sobre nós</a></li>
+      <li><a href="#visite" data-i18n="k4">Contactos</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="lang" id="lang">
+        <button type="button" class="lang-btn" id="langBtn" aria-haspopup="true" aria-expanded="false">
+          <img class="flag" id="langFlag" src="https://flagcdn.com/w40/pt.png" alt="" width="22" height="16"><span id="langCode">PT</span><span class="caret">▾</span>
+        </button>
+        <ul class="lang-menu" id="langMenu">
+          <li><button type="button" data-lang="pt"><img class="flag" src="https://flagcdn.com/w40/pt.png" alt="" width="22" height="16">Português</button></li>
+          <li><button type="button" data-lang="en"><img class="flag" src="https://flagcdn.com/w40/gb.png" alt="" width="22" height="16">English</button></li>
+          <li><button type="button" data-lang="es"><img class="flag" src="https://flagcdn.com/w40/es.png" alt="" width="22" height="16">Español</button></li>
+          <li><button type="button" data-lang="fr"><img class="flag" src="https://flagcdn.com/w40/fr.png" alt="" width="22" height="16">Français</button></li>
+          <li><button type="button" data-lang="it"><img class="flag" src="https://flagcdn.com/w40/it.png" alt="" width="22" height="16">Italiano</button></li>
+          <li><button type="button" data-lang="de"><img class="flag" src="https://flagcdn.com/w40/de.png" alt="" width="22" height="16">Deutsch</button></li>
+          <li><button type="button" data-lang="uk"><img class="flag" src="https://flagcdn.com/w40/ua.png" alt="" width="22" height="16">Українська</button></li>
+          <li><button type="button" data-lang="ru"><img class="flag" src="https://flagcdn.com/w40/ru.png" alt="" width="22" height="16">Русский</button></li>
+          <li><button type="button" data-lang="ja"><img class="flag" src="https://flagcdn.com/w40/jp.png" alt="" width="22" height="16">日本語</button></li>
+          <li><button type="button" data-lang="zh"><img class="flag" src="https://flagcdn.com/w40/cn.png" alt="" width="22" height="16">中文</button></li>
+        </ul>
+      </div>
+    <a href="#marcar" class="btn btn-primary" style="padding:11px 22px" data-i18n="k5">Marcar banho</a>
+    <button class="menu-toggle" aria-label="Abrir menu" onclick="document.getElementById('menu').classList.toggle('open')">☰</button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="container hero-grid">
+    <div>
+      <span class="eyebrow" data-i18n="k6">🐶 Pet shop de bairro · desde 2012</span>
+      <h1 data-i18n="k7">Tudo o que o seu <span>melhor amigo</span> precisa, com muito mimo.</h1>
+      <p data-i18n="k8">Alimentação de qualidade, acessórios, brinquedos e um spa onde cães e gatos saem a cheirar bem e a abanar a cauda.</p>
+      <div class="hero-actions">
+        <a href="#marcar" class="btn btn-primary" data-i18n="k9">🛁 Marcar banho & tosquia</a>
+        <a href="#produtos" class="btn btn-outline" data-i18n="k10">Ver a loja →</a>
+      </div>
+      <div class="trust">
+        <div class="avatars">
+          <div class="ph"><img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=120&q=70" alt=""></div>
+          <div class="ph"><img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=120&q=70" alt=""></div>
+          <div class="ph"><img src="https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=120&q=70" alt=""></div>
+          <div class="ph"><img src="https://images.unsplash.com/photo-1574158622682-e40e69881006?auto=format&fit=crop&w=120&q=70" alt=""></div>
+        </div>
+        <div><strong data-i18n="k11">+2.500 patudos felizes</strong><small data-i18n="k12">⭐ 4,9 no Google · 380 avaliações</small></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="main ph"><img src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=1000&q=80" alt="Cão feliz"></div>
+      <div class="float f1"><div class="ic">🛁</div><div><span data-i18n="k13">Banho & Tosquia</span><small data-i18n="k14">Hoje há vagas</small></div></div>
+      <div class="float f2"><div class="ic">🚚</div><div><span data-i18n="k15">Entrega grátis</span><small data-i18n="k16">Compras acima de 39 €</small></div></div>
+      <div class="float f3"><div class="ph"><img src="https://images.unsplash.com/photo-1495360010541-f48722b34f7d?auto=format&fit=crop&w=200&q=70" alt="Gato"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIAS -->
+<section id="animais" style="padding-top:40px">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow" data-i18n="k17">🐾 Para todos os patudos</span>
+      <h2 data-i18n="k18">Escolha o seu amigo</h2>
+    </div>
+    <div class="cats">
+      <a class="cat reveal" href="#produtos" data-go="caes"><div class="ph"><img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?auto=format&fit=crop&w=500&q=75" alt="Cão"></div><h3 data-i18n="k19">Cães</h3><small data-i18n="k20">+400 produtos</small></a>
+      <a class="cat reveal" href="#produtos" data-go="gatos"><div class="ph"><img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=500&q=75" alt="Gato"></div><h3 data-i18n="k21">Gatos</h3><small data-i18n="k22">+300 produtos</small></a>
+      <a class="cat reveal" href="#produtos" data-go="aves"><div class="ph"><img src="https://images.unsplash.com/photo-1552728089-57bdde30beb3?auto=format&fit=crop&w=500&q=75" alt="Ave"></div><h3 data-i18n="k23">Aves</h3><small data-i18n="k24">+90 produtos</small></a>
+      <a class="cat reveal" href="#produtos" data-go="peixes"><div class="ph"><img src="https://images.unsplash.com/photo-1522069169874-c58ec4b76be5?auto=format&fit=crop&w=500&q=75" alt="Peixe"></div><h3 data-i18n="k25">Peixes</h3><small data-i18n="k26">+120 produtos</small></a>
+      <a class="cat reveal" href="#produtos" data-go="roedores"><div class="ph"><img src="https://images.unsplash.com/photo-1425082661705-1834bfd09dca?auto=format&fit=crop&w=500&q=75" alt="Hamster"></div><h3 data-i18n="k27">Roedores</h3><small data-i18n="k28">+80 produtos</small></a>
+    </div>
+  </div>
+</section>
+
+<!-- SERVIÇOS -->
+<section class="services" id="servicos">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow" data-i18n="k29">✂️ Os nossos serviços</span>
+      <h2 data-i18n="k30">Spa, cuidados e muito carinho</h2>
+      <p data-i18n="k31">Profissionais certificados, produtos hipoalergénicos e todo o tempo do mundo para o seu patudo se sentir em casa.</p>
+    </div>
+    <div class="svc-grid">
+      <div class="svc reveal"><div class="ph"><img src="https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&w=700&q=75" alt="Banho de cão"></div><div class="svc-body"><h3 data-i18n="k32">🛁 Banho</h3><p data-i18n="k33">Champô adequado ao pelo, secagem, corte de unhas e limpeza de ouvidos.</p><div class="from"><span data-i18n="k34">desde</span> <b>15 €</b></div></div></div>
+      <div class="svc reveal"><div class="ph"><img src="https://images.unsplash.com/photo-1537151625747-768eb6cf92b2?auto=format&fit=crop&w=700&q=75" alt="Tosquia"></div><div class="svc-body"><h3 data-i18n="k35">✂️ Tosquia</h3><p data-i18n="k36">Corte higiénico ou completo, à tesoura ou à máquina, para todas as raças.</p><div class="from"><span data-i18n="k34">desde</span> <b>25 €</b></div></div></div>
+      <div class="svc reveal"><div class="ph"><img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=700&q=75" alt="Cães a brincar"></div><div class="svc-body"><h3 data-i18n="k37">🏡 Creche & Hotel</h3><p data-i18n="k38">Dias de brincadeira e estadias com passeios, mimos e fotos diárias para si.</p><div class="from"><span data-i18n="k34">desde</span> <b>18 €</b><span data-i18n="k39">/dia</span></div></div></div>
+      <div class="svc reveal"><div class="ph"><img src="https://images.unsplash.com/photo-1450778869180-41d0601e046e?auto=format&fit=crop&w=700&q=75" alt="Cão e dono"></div><div class="svc-body"><h3 data-i18n="k40">🚚 Entregas ao domicílio</h3><p data-i18n="k41">Ração e areia à sua porta, no próprio dia. Grátis acima de 39 €.</p><div class="from"><span data-i18n="k34">desde</span> <b>0 €</b></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUTOS -->
+<section id="produtos">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow" data-i18n="k42">🛍️ A nossa loja</span>
+      <h2 data-i18n="k43">Os favoritos dos nossos clientes</h2>
+      <p data-i18n="k44">Marcas de confiança e conselhos de quem percebe. Peça-nos ajuda para escolher a ração certa.</p>
+    </div>
+    <div class="tabs reveal">
+      <button class="tab active" data-f="all" data-i18n="k45">Todos</button>
+      <button class="tab" data-f="caes" data-i18n="k46">🐶 Cães</button>
+      <button class="tab" data-f="gatos" data-i18n="k47">🐱 Gatos</button>
+      <button class="tab" data-f="aves" data-i18n="k48">🦜 Aves</button>
+      <button class="tab" data-f="peixes" data-i18n="k49">🐠 Peixes</button>
+      <button class="tab" data-f="roedores" data-i18n="k50">🐹 Roedores</button>
+    </div>
+    <div class="grid" id="grid">
+      <article class="card reveal" data-c="caes"><div class="ph"><span class="badge">-20%</span><img src="https://images.unsplash.com/photo-1601758228041-f3b2795255f1?auto=format&fit=crop&w=700&q=75" alt="Cão a comer"></div><div class="card-body"><small class="kind" data-i18n="k54">Cães · Alimentação</small><h3 data-i18n="k55">Ração Premium Adulto 12 kg</h3><p data-i18n="k56">Com frango e arroz, sem corantes. Para cães de porte médio.</p><div class="row"><span class="price"><s>54,90 €</s>43,90 €</span><button class="add" aria-label="Adicionar">🛒</button></div></div></article>
+      <article class="card reveal" data-c="caes"><div class="ph"><span class="badge green" data-i18n="k51">Novo</span><img src="https://images.unsplash.com/photo-1561037404-61cd46aa615b?auto=format&fit=crop&w=700&q=75" alt="Cão com brinquedo"></div><div class="card-body"><small class="kind" data-i18n="k57">Cães · Brinquedos</small><h3 data-i18n="k58">Kit Brinquedos Resistentes</h3><p data-i18n="k59">Corda, bola e osso de borracha natural. Ideal para roer.</p><div class="row"><span class="price">14,90 €</span><button class="add" aria-label="Adicionar">🛒</button></div></div></article>
+      <article class="card reveal" data-c="gatos"><div class="ph"><img src="https://images.unsplash.com/photo-1574158622682-e40e69881006?auto=format&fit=crop&w=700&q=75" alt="Gato"></div><div class="card-body"><small class="kind" data-i18n="k60">Gatos · Alimentação</small><h3 data-i18n="k61">Ração Gato Esterilizado 3 kg</h3><p data-i18n="k62">Rica em salmão, controla o peso e protege o trato urinário.</p><div class="row"><span class="price">22,50 €</span><button class="add" aria-label="Adicionar">🛒</button></div></div></article>
+      <article class="card reveal" data-c="gatos"><div class="ph"><span class="badge" data-i18n="k52">Top vendas</span><img src="https://images.unsplash.com/photo-1495360010541-f48722b34f7d?auto=format&fit=crop&w=700&q=75" alt="Gato a descansar"></div><div class="card-body"><small class="kind" data-i18n="k63">Gatos · Conforto</small><h3 data-i18n="k64">Arranhador Torre 3 Níveis</h3><p data-i18n="k65">Com caminha suspensa e bolinhas. O castelo do seu gato.</p><div class="row"><span class="price">39,90 €</span><button class="add" aria-label="Adicionar">🛒</button></div></div></article>
+      <article class="card reveal" data-c="caes"><div class="ph"><img src="https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=700&q=75" alt="Cão"></div><div class="card-body"><small class="kind" data-i18n="k66">Cães · Passeio</small><h3 data-i18n="k67">Peitoral Confort + Trela</h3><p data-i18n="k68">Acolchoado, refletor e ajustável. Do XS ao XL.</p><div class="row"><span class="price">24,90 €</span><button class="add" aria-label="Adicionar">🛒</button></div></div></article>
+      <article class="card reveal" data-c="gatos"><div class="ph"><img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=700&q=75" alt="Gato"></div><div class="card-body"><small class="kind" data-i18n="k69">Gatos · Higiene</small><h3 data-i18n="k70">Areia Aglomerante 10 L</h3><p data-i18n="k71">Sem pó, controla odores durante semanas.</p><div class="row"><span class="price">9,90 €</span><button class="add" aria-label="Adicionar">🛒</button></div></div></article>
+      <article class="card reveal" data-c="aves"><div class="ph"><img src="https://images.unsplash.com/photo-1552728089-57bdde30beb3?auto=format&fit=crop&w=700&q=75" alt="Ave"></div><div class="card-body"><small class="kind" data-i18n="k72">Aves · Alimentação</small><h3 data-i18n="k73">Mistura de Sementes Premium</h3><p data-i18n="k74">Para periquitos e caturras, com frutos e vitaminas.</p><div class="row"><span class="price">6,90 €</span><button class="add" aria-label="Adicionar">🛒</button></div></div></article>
+      <article class="card reveal" data-c="peixes"><div class="ph"><span class="badge green" data-i18n="k53">Kit completo</span><img src="https://images.unsplash.com/photo-1522069169874-c58ec4b76be5?auto=format&fit=crop&w=700&q=75" alt="Peixe de aquário"></div><div class="card-body"><small class="kind" data-i18n="k75">Peixes · Aquários</small><h3 data-i18n="k76">Aquário 60 L com Filtro e LED</h3><p data-i18n="k77">Pronto a montar. Ajudamos a escolher os primeiros peixes.</p><div class="row"><span class="price">89,00 €</span><button class="add" aria-label="Adicionar">🛒</button></div></div></article>
+      <article class="card reveal" data-c="roedores"><div class="ph"><img src="https://images.unsplash.com/photo-1425082661705-1834bfd09dca?auto=format&fit=crop&w=700&q=75" alt="Hamster"></div><div class="card-body"><small class="kind" data-i18n="k78">Roedores · Casa</small><h3 data-i18n="k79">Gaiola Hamster com Roda</h3><p data-i18n="k80">Dois andares, túneis e bebedouro incluído.</p><div class="row"><span class="price">34,90 €</span><button class="add" aria-label="Adicionar">🛒</button></div></div></article>
+      <article class="card reveal" data-c="caes"><div class="ph"><img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?auto=format&fit=crop&w=700&q=75" alt="Cão"></div><div class="card-body"><small class="kind" data-i18n="k81">Cães · Snacks</small><h3 data-i18n="k82">Snacks Dentários Naturais</h3><p data-i18n="k83">Ajudam a limpar os dentes. Pack de 28 unidades.</p><div class="row"><span class="price">8,50 €</span><button class="add" aria-label="Adicionar">🛒</button></div></div></article>
+    </div>
+  </div>
+</section>
+
+<!-- PORQUÊ -->
+<section id="sobre" style="padding-top:20px">
+  <div class="container why">
+    <div class="why-imgs reveal">
+      <div class="ph"><img src="https://images.unsplash.com/photo-1450778869180-41d0601e046e?auto=format&fit=crop&w=600&q=75" alt="Cão com dona"></div>
+      <div class="ph"><img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=600&q=75" alt="Cão"></div>
+      <div class="ph"><img src="https://images.unsplash.com/photo-1574158622682-e40e69881006?auto=format&fit=crop&w=600&q=75" alt="Gato"></div>
+      <div class="ph"><img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=600&q=75" alt="Cães"></div>
+    </div>
+    <div class="reveal">
+      <span class="eyebrow" data-i18n="k84">💛 Sobre nós</span>
+      <h2 data-i18n="k85">Somos apaixonados por animais (e isso nota-se).</h2>
+      <p data-i18n="k86">Começámos como uma pequena loja de bairro e crescemos graças a quem confia em nós para cuidar da família de quatro patas. Aqui ninguém é só mais um cliente.</p>
+      <div class="points">
+        <div class="point"><div class="ic">🩺</div><div><strong data-i18n="k87">Aconselhamento especializado</strong><p data-i18n="k88">Ajudamos a escolher a alimentação certa para a idade, raça e saúde.</p></div></div>
+        <div class="point"><div class="ic">🌿</div><div><strong data-i18n="k89">Produtos seguros e naturais</strong><p data-i18n="k90">Champôs hipoalergénicos e rações sem aditivos desnecessários.</p></div></div>
+        <div class="point"><div class="ic">🎁</div><div><strong data-i18n="k91">Cartão Cliente Patudo</strong><p data-i18n="k92">Acumule pontos e ganhe o 10.º banho grátis.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AMIGOS -->
+<section class="friends">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow" data-i18n="k93">📸 Clientes de quatro patas</span>
+      <h2 data-i18n="k94">Os nossos amigos depois do spa</h2>
+      <p data-i18n="k95">Partilhe a foto do seu patudo com <b>#PatasEMimos</b> e apareça aqui!</p>
+    </div>
+    <div class="friends-grid reveal">
+      <div class="friend ph"><span>Bolinhas 🐶</span><img src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=500&q=75" alt=""></div>
+      <div class="friend ph"><span>Mia 🐱</span><img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=500&q=75" alt=""></div>
+      <div class="friend ph"><span>Rocky 🐶</span><img src="https://images.unsplash.com/photo-1561037404-61cd46aa615b?auto=format&fit=crop&w=500&q=75" alt=""></div>
+      <div class="friend ph"><span>Nina 🐱</span><img src="https://images.unsplash.com/photo-1495360010541-f48722b34f7d?auto=format&fit=crop&w=500&q=75" alt=""></div>
+      <div class="friend ph"><span>Toby 🐶</span><img src="https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=500&q=75" alt=""></div>
+      <div class="friend ph"><span>Luna 🐶</span><img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?auto=format&fit=crop&w=500&q=75" alt=""></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTEMUNHOS -->
+<section>
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow" data-i18n="k96">⭐ Avaliações</span>
+      <h2 data-i18n="k97">O que dizem os donos</h2>
+    </div>
+    <div class="reviews-grid">
+      <div class="review reveal"><div class="stars">★★★★★</div><p data-i18n="k98">“O meu Bolinhas tinha pavor de banhos. Aqui foi tratado com tanta paciência que agora entra a abanar a cauda!”</p><div class="who"><div class="ph"><img src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=120&q=70" alt=""></div><div><strong>Sofia R.</strong><small data-i18n="k101">Dona do Bolinhas</small></div></div></div>
+      <div class="review reveal"><div class="stars">★★★★★</div><p data-i18n="k99">“Ajudaram-me a escolher uma ração para a minha gata com problemas renais. Atendimento de excelência.”</p><div class="who"><div class="ph"><img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=120&q=70" alt=""></div><div><strong>Miguel T.</strong><small data-i18n="k102">Dono da Mia</small></div></div></div>
+      <div class="review reveal"><div class="stars">★★★★★</div><p data-i18n="k100">“Peço a ração pelo WhatsApp e chega no mesmo dia. Preços justos e sempre um biscoito de oferta!”</p><div class="who"><div class="ph"><img src="https://images.unsplash.com/photo-1561037404-61cd46aa615b?auto=format&fit=crop&w=120&q=70" alt=""></div><div><strong>Inês C.</strong><small data-i18n="k103">Dona do Rocky</small></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="marcar">
+  <div class="container">
+    <div class="cta-box reveal">
+      <div class="cta-text">
+        <span class="eyebrow" data-i18n="k104">🛁 Marcações</span>
+        <h2 data-i18n="k105">O seu patudo merece um dia de spa.</h2>
+        <p data-i18n="k106">Marque o banho ou a tosquia em menos de 1 minuto pelo WhatsApp. Respondemos rapidamente!</p>
+        <div class="hero-actions">
+          <a class="btn btn-wa" href="https://wa.me/351912345678?text=Ol%C3%A1!%20Gostaria%20de%20marcar%20um%20banho%20para%20o%20meu%20patudo." target="_blank" rel="noopener" data-i18n="k107">💬 Marcar por WhatsApp</a>
+          <a class="btn btn-outline" href="tel:+351212345678">📞 21 234 5678</a>
+        </div>
+      </div>
+      <div class="ph"><img src="https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&w=900&q=75" alt="Cão no banho"></div>
+    </div>
+  </div>
+</section>
+
+<!-- VISITE -->
+<section id="visite" style="padding-top:0">
+  <div class="container visit">
+    <div class="info-card reveal">
+      <span class="eyebrow" data-i18n="k108">📍 Visite-nos</span>
+      <h2 data-i18n="k109">Estamos à sua espera (e com biscoitos!)</h2>
+      <div class="info-row"><div class="ic">📍</div><div><strong data-i18n="k110">Morada</strong><span>Avenida dos Patudos, 45<br>1000-000 Lisboa</span></div></div>
+      <div class="info-row"><div class="ic">📞</div><div><strong data-i18n="k111">Contacto</strong><span>21 234 5678 · 912 345 678</span></div></div>
+      <div class="info-row"><div class="ic">🕘</div><div style="flex:1"><strong data-i18n="k112">Horário</strong>
+        <table class="hours" id="hours">
+          <tr data-d="1"><td data-i18n="k113">Segunda a Sexta</td><td>9h30 – 19h30</td></tr>
+          <tr data-d="6"><td data-i18n="k114">Sábado</td><td>9h30 – 18h00</td></tr>
+          <tr data-d="0"><td data-i18n="k115">Domingo</td><td data-i18n="k116">Encerrado</td></tr>
+        </table></div></div>
+      <a href="https://maps.google.com/?q=Lisboa" target="_blank" rel="noopener" class="btn btn-primary" data-i18n="k117">Abrir no Google Maps</a>
+    </div>
+    <div class="map reveal"><iframe src="https://www.google.com/maps?q=Lisboa&output=embed" loading="lazy" title="Mapa do pet shop"></iframe></div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="foot">
+      <div><div class="logo"><span class="paw">🐾</span>Patas <b>&</b> Mimos</div><p style="max-width:360px" data-i18n="k118">Pet shop, banhos e tosquias. Tudo para cães, gatos, aves, peixes e roedores, com muito carinho.</p></div>
+      <div><h4 data-i18n="k119">Navegação</h4><ul><li><a href="#servicos" data-i18n="k1">Serviços</a></li><li><a href="#produtos" data-i18n="k2">Loja</a></li><li><a href="#marcar" data-i18n="k121">Marcações</a></li><li><a href="#visite" data-i18n="k4">Contactos</a></li></ul></div>
+      <div><h4 data-i18n="k120">Siga-nos</h4><ul><li><a href="#">Instagram</a></li><li><a href="#">Facebook</a></li><li><a href="#">TikTok</a></li></ul></div>
+    </div>
+    <div class="copy">© <span id="y"></span> Patas & Mimos · <span data-i18n="k122">Todos os direitos reservados</span></div>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/351912345678" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
+
+<script>
+  document.querySelectorAll('#menu a').forEach(a=>a.addEventListener('click',()=>document.getElementById('menu').classList.remove('open')));
+
+  function filter(f){
+    document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.f===f));
+    document.querySelectorAll('#grid .card').forEach(c=>c.classList.toggle('hide',f!=='all'&&c.dataset.c!==f));
+  }
+  document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>filter(t.dataset.f)));
+  document.querySelectorAll('.cat').forEach(c=>c.addEventListener('click',()=>filter(c.dataset.go)));
+
+  // "Adicionar" mostra um pequeno feedback (demo)
+  document.querySelectorAll('.add').forEach(b=>b.addEventListener('click',()=>{b.textContent='✓';b.style.background='var(--teal)';b.style.color='#fff';setTimeout(()=>{b.textContent='🛒';b.style.background='';b.style.color=''},1200)}));
+
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // Se alguma foto falhar, mostra o fundo colorido em vez de um ícone partido
+  document.querySelectorAll('.ph img').forEach(img=>{
+    const hide=()=>img.style.visibility='hidden';
+    if(img.complete&&img.naturalWidth===0)hide();else img.addEventListener('error',hide);
+  });
+
+  const d=new Date().getDay();
+  const row=document.querySelector(`#hours tr[data-d="${d>=1&&d<=5?1:d}"]`);
+  if(row)row.classList.add('today');
+  document.getElementById('y').textContent=new Date().getFullYear();
+
+  // ---------- IDIOMAS ----------
+  const I18N = {"en": {"k0": "Pets", "k1": "Services", "k2": "Shop", "k3": "About us", "k4": "Contacts", "k5": "Book a bath", "k6": "🐶 Neighbourhood pet shop · since 2012", "k7": "Everything your <span>best friend</span> needs, with lots of love.", "k8": "Quality food, accessories, toys and a spa where dogs and cats leave smelling great and wagging their tails.", "k9": "🛁 Book a bath & grooming", "k10": "Visit the shop →", "k11": "2,500+ happy pets", "k12": "⭐ 4.9 on Google · 380 reviews", "k13": "Bath & Grooming", "k14": "Slots available today", "k15": "Free delivery", "k16": "On orders over €39", "k17": "🐾 For every furry friend", "k18": "Choose your friend", "k19": "Dogs", "k20": "400+ products", "k21": "Cats", "k22": "300+ products", "k23": "Birds", "k24": "90+ products", "k25": "Fish", "k26": "120+ products", "k27": "Small pets", "k28": "80+ products", "k29": "✂️ Our services", "k30": "Spa, care and lots of love", "k31": "Certified professionals, hypoallergenic products and all the time in the world so your pet feels at home.", "k32": "🛁 Bath", "k33": "Shampoo suited to the coat, drying, nail clipping and ear cleaning.", "k34": "from", "k35": "✂️ Grooming", "k36": "Hygienic or full cut, with scissors or clippers, for every breed.", "k37": "🏡 Daycare & Hotel", "k38": "Play days and stays with walks, cuddles and daily photos for you.", "k39": "/day", "k40": "🚚 Home delivery", "k41": "Food and litter at your door, same day. Free over €39.", "k42": "🛍️ Our shop", "k43": "Our customers' favourites", "k44": "Trusted brands and advice from people who know. Ask us to help you choose the right food.", "k45": "All", "k46": "🐶 Dogs", "k47": "🐱 Cats", "k48": "🦜 Birds", "k49": "🐠 Fish", "k50": "🐹 Small pets", "k51": "New", "k52": "Best seller", "k53": "Complete kit", "k54": "Dogs · Food", "k55": "Premium Adult Dry Food 12 kg", "k56": "Chicken and rice, no colourings. For medium-sized dogs.", "k57": "Dogs · Toys", "k58": "Tough Toy Kit", "k59": "Rope, ball and natural rubber bone. Perfect for chewing.", "k60": "Cats · Food", "k61": "Sterilised Cat Food 3 kg", "k62": "Rich in salmon, helps control weight and protects the urinary tract.", "k63": "Cats · Comfort", "k64": "3-Level Cat Tree", "k65": "With a hanging bed and toy balls. Your cat's castle.", "k66": "Dogs · Walks", "k67": "Comfort Harness + Lead", "k68": "Padded, reflective and adjustable. Sizes XS to XL.", "k69": "Cats · Hygiene", "k70": "Clumping Litter 10 L", "k71": "Dust-free, controls odours for weeks.", "k72": "Birds · Food", "k73": "Premium Seed Mix", "k74": "For budgies and cockatiels, with fruit and vitamins.", "k75": "Fish · Aquariums", "k76": "60 L Aquarium with Filter and LED", "k77": "Ready to set up. We'll help you choose your first fish.", "k78": "Small pets · Home", "k79": "Hamster Cage with Wheel", "k80": "Two levels, tunnels and water bottle included.", "k81": "Dogs · Treats", "k82": "Natural Dental Treats", "k83": "Help keep teeth clean. Pack of 28.", "k84": "💛 About us", "k85": "We're crazy about animals (and it shows).", "k86": "We started as a small neighbourhood shop and grew thanks to everyone who trusts us to care for their four-legged family. Here, nobody is just another customer.", "k87": "Expert advice", "k88": "We help you choose the right food for age, breed and health.", "k89": "Safe, natural products", "k90": "Hypoallergenic shampoos and food without unnecessary additives.", "k91": "Patudo Loyalty Card", "k92": "Collect points and get your 10th bath free.", "k93": "📸 Our four-legged customers", "k94": "Our friends after the spa", "k95": "Share your pet's photo with <b>#PatasEMimos</b> and appear here!", "k96": "⭐ Reviews", "k97": "What pet owners say", "k98": "“My Bolinhas was terrified of baths. Here he was treated with so much patience that now he walks in wagging his tail!”", "k99": "“They helped me choose food for my cat with kidney problems. Excellent service.”", "k100": "“I order food on WhatsApp and it arrives the same day. Fair prices and always a free treat!”", "k101": "Bolinhas's owner", "k102": "Mia's owner", "k103": "Rocky's owner", "k104": "🛁 Bookings", "k105": "Your pet deserves a spa day.", "k106": "Book a bath or grooming in under 1 minute on WhatsApp. We reply quickly!", "k107": "💬 Book on WhatsApp", "k108": "📍 Visit us", "k109": "We're waiting for you (with treats!)", "k110": "Address", "k111": "Contact", "k112": "Opening hours", "k113": "Monday to Friday", "k114": "Saturday", "k115": "Sunday", "k116": "Closed", "k117": "Open in Google Maps", "k118": "Pet shop, baths and grooming. Everything for dogs, cats, birds, fish and small pets, with lots of love.", "k119": "Navigation", "k120": "Follow us", "k121": "Bookings", "k122": "All rights reserved"}, "es": {"k0": "Animales", "k1": "Servicios", "k2": "Tienda", "k3": "Sobre nosotros", "k4": "Contacto", "k5": "Reservar baño", "k6": "🐶 Tienda de mascotas de barrio · desde 2012", "k7": "Todo lo que su <span>mejor amigo</span> necesita, con mucho cariño.", "k8": "Alimentación de calidad, accesorios, juguetes y un spa donde perros y gatos salen oliendo bien y moviendo la cola.", "k9": "🛁 Reservar baño y peluquería", "k10": "Ver la tienda →", "k11": "+2.500 mascotas felices", "k12": "⭐ 4,9 en Google · 380 reseñas", "k13": "Baño y Peluquería", "k14": "Hoy hay citas libres", "k15": "Envío gratis", "k16": "En compras de más de 39 €", "k17": "🐾 Para todas las mascotas", "k18": "Elija a su amigo", "k19": "Perros", "k20": "+400 productos", "k21": "Gatos", "k22": "+300 productos", "k23": "Aves", "k24": "+90 productos", "k25": "Peces", "k26": "+120 productos", "k27": "Roedores", "k28": "+80 productos", "k29": "✂️ Nuestros servicios", "k30": "Spa, cuidados y mucho cariño", "k31": "Profesionales certificados, productos hipoalergénicos y todo el tiempo del mundo para que su mascota se sienta en casa.", "k32": "🛁 Baño", "k33": "Champú adecuado al pelo, secado, corte de uñas y limpieza de oídos.", "k34": "desde", "k35": "✂️ Peluquería", "k36": "Corte higiénico o completo, a tijera o a máquina, para todas las razas.", "k37": "🏡 Guardería y Hotel", "k38": "Días de juego y estancias con paseos, mimos y fotos diarias para usted.", "k39": "/día", "k40": "🚚 Entrega a domicilio", "k41": "Pienso y arena en su puerta, el mismo día. Gratis a partir de 39 €.", "k42": "🛍️ Nuestra tienda", "k43": "Los favoritos de nuestros clientes", "k44": "Marcas de confianza y consejos de expertos. Pídanos ayuda para elegir el pienso adecuado.", "k45": "Todos", "k46": "🐶 Perros", "k47": "🐱 Gatos", "k48": "🦜 Aves", "k49": "🐠 Peces", "k50": "🐹 Roedores", "k51": "Nuevo", "k52": "Más vendido", "k53": "Kit completo", "k54": "Perros · Alimentación", "k55": "Pienso Premium Adulto 12 kg", "k56": "Con pollo y arroz, sin colorantes. Para perros medianos.", "k57": "Perros · Juguetes", "k58": "Kit de Juguetes Resistentes", "k59": "Cuerda, pelota y hueso de caucho natural. Ideal para morder.", "k60": "Gatos · Alimentación", "k61": "Pienso Gato Esterilizado 3 kg", "k62": "Rico en salmón, controla el peso y protege las vías urinarias.", "k63": "Gatos · Confort", "k64": "Rascador Torre de 3 Niveles", "k65": "Con cama colgante y pelotitas. El castillo de su gato.", "k66": "Perros · Paseo", "k67": "Arnés Confort + Correa", "k68": "Acolchado, reflectante y ajustable. De la XS a la XL.", "k69": "Gatos · Higiene", "k70": "Arena Aglomerante 10 L", "k71": "Sin polvo, controla los olores durante semanas.", "k72": "Aves · Alimentación", "k73": "Mezcla de Semillas Premium", "k74": "Para periquitos y ninfas, con frutas y vitaminas.", "k75": "Peces · Acuarios", "k76": "Acuario 60 L con Filtro y LED", "k77": "Listo para montar. Le ayudamos a elegir los primeros peces.", "k78": "Roedores · Casa", "k79": "Jaula para Hámster con Rueda", "k80": "Dos pisos, túneles y bebedero incluido.", "k81": "Perros · Snacks", "k82": "Snacks Dentales Naturales", "k83": "Ayudan a limpiar los dientes. Pack de 28 unidades.", "k84": "💛 Sobre nosotros", "k85": "Nos apasionan los animales (y se nota).", "k86": "Empezamos como una pequeña tienda de barrio y crecimos gracias a quienes confían en nosotros para cuidar de su familia de cuatro patas. Aquí nadie es un cliente más.", "k87": "Asesoramiento especializado", "k88": "Le ayudamos a elegir la alimentación adecuada según la edad, la raza y la salud.", "k89": "Productos seguros y naturales", "k90": "Champús hipoalergénicos y piensos sin aditivos innecesarios.", "k91": "Tarjeta Cliente Patudo", "k92": "Acumule puntos y consiga el 10.º baño gratis.", "k93": "📸 Clientes de cuatro patas", "k94": "Nuestros amigos después del spa", "k95": "¡Comparta la foto de su mascota con <b>#PatasEMimos</b> y aparezca aquí!", "k96": "⭐ Reseñas", "k97": "Lo que dicen los dueños", "k98": "“Mi Bolinhas tenía pánico a los baños. Aquí lo trataron con tanta paciencia que ahora entra moviendo la cola.”", "k99": "“Me ayudaron a elegir un pienso para mi gata con problemas renales. Atención excelente.”", "k100": "“Pido el pienso por WhatsApp y llega el mismo día. Precios justos y siempre una galleta de regalo.”", "k101": "Dueña de Bolinhas", "k102": "Dueño de Mia", "k103": "Dueña de Rocky", "k104": "🛁 Reservas", "k105": "Su mascota merece un día de spa.", "k106": "Reserve el baño o la peluquería en menos de 1 minuto por WhatsApp. ¡Respondemos rápido!", "k107": "💬 Reservar por WhatsApp", "k108": "📍 Visítenos", "k109": "Le esperamos (¡y con galletas!)", "k110": "Dirección", "k111": "Contacto", "k112": "Horario", "k113": "Lunes a viernes", "k114": "Sábado", "k115": "Domingo", "k116": "Cerrado", "k117": "Abrir en Google Maps", "k118": "Tienda de mascotas, baños y peluquería. Todo para perros, gatos, aves, peces y roedores, con mucho cariño.", "k119": "Navegación", "k120": "Síganos", "k121": "Reservas", "k122": "Todos los derechos reservados"}, "fr": {"k0": "Animaux", "k1": "Services", "k2": "Boutique", "k3": "À propos", "k4": "Contact", "k5": "Réserver un bain", "k6": "🐶 Animalerie de quartier · depuis 2012", "k7": "Tout ce dont votre <span>meilleur ami</span> a besoin, avec beaucoup d'amour.", "k8": "Une alimentation de qualité, des accessoires, des jouets et un spa d'où chiens et chats repartent tout propres en remuant la queue.", "k9": "🛁 Réserver bain & toilettage", "k10": "Voir la boutique →", "k11": "+2 500 compagnons heureux", "k12": "⭐ 4,9 sur Google · 380 avis", "k13": "Bain & Toilettage", "k14": "Créneaux libres aujourd'hui", "k15": "Livraison gratuite", "k16": "Dès 39 € d'achat", "k17": "🐾 Pour tous les compagnons", "k18": "Choisissez votre ami", "k19": "Chiens", "k20": "+400 produits", "k21": "Chats", "k22": "+300 produits", "k23": "Oiseaux", "k24": "+90 produits", "k25": "Poissons", "k26": "+120 produits", "k27": "Rongeurs", "k28": "+80 produits", "k29": "✂️ Nos services", "k30": "Spa, soins et beaucoup de tendresse", "k31": "Des professionnels certifiés, des produits hypoallergéniques et tout le temps nécessaire pour que votre compagnon se sente chez lui.", "k32": "🛁 Bain", "k33": "Shampooing adapté au pelage, séchage, coupe des griffes et nettoyage des oreilles.", "k34": "dès", "k35": "✂️ Toilettage", "k36": "Coupe hygiénique ou complète, aux ciseaux ou à la tondeuse, pour toutes les races.", "k37": "🏡 Garderie & Pension", "k38": "Journées de jeu et séjours avec promenades, câlins et photos quotidiennes pour vous.", "k39": "/jour", "k40": "🚚 Livraison à domicile", "k41": "Croquettes et litière à votre porte, le jour même. Gratuit dès 39 €.", "k42": "🛍️ Notre boutique", "k43": "Les préférés de nos clients", "k44": "Des marques de confiance et les conseils de connaisseurs. Demandez-nous de l'aide pour choisir la bonne alimentation.", "k45": "Tous", "k46": "🐶 Chiens", "k47": "🐱 Chats", "k48": "🦜 Oiseaux", "k49": "🐠 Poissons", "k50": "🐹 Rongeurs", "k51": "Nouveau", "k52": "Meilleure vente", "k53": "Kit complet", "k54": "Chiens · Alimentation", "k55": "Croquettes Premium Adulte 12 kg", "k56": "Au poulet et au riz, sans colorants. Pour chiens de taille moyenne.", "k57": "Chiens · Jouets", "k58": "Kit de Jouets Résistants", "k59": "Corde, balle et os en caoutchouc naturel. Idéal à mâchouiller.", "k60": "Chats · Alimentation", "k61": "Croquettes Chat Stérilisé 3 kg", "k62": "Riches en saumon, contrôlent le poids et protègent les voies urinaires.", "k63": "Chats · Confort", "k64": "Arbre à Chat 3 Niveaux", "k65": "Avec hamac suspendu et balles. Le château de votre chat.", "k66": "Chiens · Promenade", "k67": "Harnais Confort + Laisse", "k68": "Rembourré, réfléchissant et réglable. Du XS au XL.", "k69": "Chats · Hygiène", "k70": "Litière Agglomérante 10 L", "k71": "Sans poussière, contrôle les odeurs pendant des semaines.", "k72": "Oiseaux · Alimentation", "k73": "Mélange de Graines Premium", "k74": "Pour perruches et calopsittes, avec fruits et vitamines.", "k75": "Poissons · Aquariums", "k76": "Aquarium 60 L avec Filtre et LED", "k77": "Prêt à installer. Nous vous aidons à choisir vos premiers poissons.", "k78": "Rongeurs · Habitat", "k79": "Cage Hamster avec Roue", "k80": "Deux étages, tunnels et biberon inclus.", "k81": "Chiens · Friandises", "k82": "Friandises Dentaires Naturelles", "k83": "Aident à nettoyer les dents. Paquet de 28.", "k84": "💛 À propos", "k85": "Nous sommes passionnés par les animaux (et ça se voit).", "k86": "Nous avons commencé comme une petite boutique de quartier et avons grandi grâce à ceux qui nous confient leur famille à quatre pattes. Ici, personne n'est un client comme les autres.", "k87": "Conseils spécialisés", "k88": "Nous vous aidons à choisir l'alimentation adaptée à l'âge, à la race et à la santé.", "k89": "Produits sûrs et naturels", "k90": "Shampooings hypoallergéniques et croquettes sans additifs inutiles.", "k91": "Carte Fidélité Patudo", "k92": "Cumulez des points et obtenez le 10e bain gratuit.", "k93": "📸 Nos clients à quatre pattes", "k94": "Nos amis après le spa", "k95": "Partagez la photo de votre compagnon avec <b>#PatasEMimos</b> et apparaissez ici !", "k96": "⭐ Avis", "k97": "Ce que disent les maîtres", "k98": "« Mon Bolinhas avait une peur bleue du bain. Ici, on l'a traité avec tant de patience qu'il entre maintenant en remuant la queue ! »", "k99": "« On m'a aidé à choisir des croquettes pour ma chatte qui a des problèmes rénaux. Un service excellent. »", "k100": "« Je commande les croquettes sur WhatsApp et elles arrivent le jour même. Prix justes et toujours une friandise offerte ! »", "k101": "Maîtresse de Bolinhas", "k102": "Maître de Mia", "k103": "Maîtresse de Rocky", "k104": "🛁 Réservations", "k105": "Votre compagnon mérite une journée spa.", "k106": "Réservez le bain ou le toilettage en moins d'une minute sur WhatsApp. Nous répondons vite !", "k107": "💬 Réserver sur WhatsApp", "k108": "📍 Venez nous voir", "k109": "Nous vous attendons (avec des friandises !)", "k110": "Adresse", "k111": "Contact", "k112": "Horaires", "k113": "Du lundi au vendredi", "k114": "Samedi", "k115": "Dimanche", "k116": "Fermé", "k117": "Ouvrir dans Google Maps", "k118": "Animalerie, bains et toilettage. Tout pour les chiens, chats, oiseaux, poissons et rongeurs, avec beaucoup d'amour.", "k119": "Navigation", "k120": "Suivez-nous", "k121": "Réservations", "k122": "Tous droits réservés"}, "it": {"k0": "Animali", "k1": "Servizi", "k2": "Negozio", "k3": "Chi siamo", "k4": "Contatti", "k5": "Prenota un bagno", "k6": "🐶 Pet shop di quartiere · dal 2012", "k7": "Tutto ciò di cui il tuo <span>migliore amico</span> ha bisogno, con tanto affetto.", "k8": "Alimenti di qualità, accessori, giochi e una spa da cui cani e gatti escono profumati e scodinzolanti.", "k9": "🛁 Prenota bagno & toelettatura", "k10": "Vedi il negozio →", "k11": "Oltre 2.500 amici felici", "k12": "⭐ 4,9 su Google · 380 recensioni", "k13": "Bagno & Toelettatura", "k14": "Posti liberi oggi", "k15": "Consegna gratuita", "k16": "Per acquisti oltre 39 €", "k17": "🐾 Per tutti gli amici a quattro zampe", "k18": "Scegli il tuo amico", "k19": "Cani", "k20": "+400 prodotti", "k21": "Gatti", "k22": "+300 prodotti", "k23": "Uccelli", "k24": "+90 prodotti", "k25": "Pesci", "k26": "+120 prodotti", "k27": "Roditori", "k28": "+80 prodotti", "k29": "✂️ I nostri servizi", "k30": "Spa, cure e tanto affetto", "k31": "Professionisti certificati, prodotti ipoallergenici e tutto il tempo necessario perché il tuo amico si senta a casa.", "k32": "🛁 Bagno", "k33": "Shampoo adatto al pelo, asciugatura, taglio unghie e pulizia delle orecchie.", "k34": "da", "k35": "✂️ Toelettatura", "k36": "Taglio igienico o completo, a forbice o a macchinetta, per tutte le razze.", "k37": "🏡 Asilo & Pensione", "k38": "Giornate di gioco e soggiorni con passeggiate, coccole e foto quotidiane per te.", "k39": "/giorno", "k40": "🚚 Consegna a domicilio", "k41": "Crocchette e lettiera a casa tua, in giornata. Gratis oltre 39 €.", "k42": "🛍️ Il nostro negozio", "k43": "I preferiti dei nostri clienti", "k44": "Marchi affidabili e consigli da esperti. Chiedici aiuto per scegliere l'alimento giusto.", "k45": "Tutti", "k46": "🐶 Cani", "k47": "🐱 Gatti", "k48": "🦜 Uccelli", "k49": "🐠 Pesci", "k50": "🐹 Roditori", "k51": "Novità", "k52": "Più venduto", "k53": "Kit completo", "k54": "Cani · Alimentazione", "k55": "Crocchette Premium Adult 12 kg", "k56": "Con pollo e riso, senza coloranti. Per cani di taglia media.", "k57": "Cani · Giochi", "k58": "Kit Giochi Resistenti", "k59": "Corda, palla e osso in gomma naturale. Ideale da mordere.", "k60": "Gatti · Alimentazione", "k61": "Crocchette Gatto Sterilizzato 3 kg", "k62": "Ricche di salmone, controllano il peso e proteggono le vie urinarie.", "k63": "Gatti · Comfort", "k64": "Tiragraffi Torre 3 Livelli", "k65": "Con cuccia sospesa e palline. Il castello del tuo gatto.", "k66": "Cani · Passeggiata", "k67": "Pettorina Comfort + Guinzaglio", "k68": "Imbottita, riflettente e regolabile. Dalla XS alla XL.", "k69": "Gatti · Igiene", "k70": "Lettiera Agglomerante 10 L", "k71": "Senza polvere, controlla gli odori per settimane.", "k72": "Uccelli · Alimentazione", "k73": "Miscela di Semi Premium", "k74": "Per pappagallini e calopsiti, con frutta e vitamine.", "k75": "Pesci · Acquari", "k76": "Acquario 60 L con Filtro e LED", "k77": "Pronto da montare. Ti aiutiamo a scegliere i primi pesci.", "k78": "Roditori · Casa", "k79": "Gabbia per Criceto con Ruota", "k80": "Due piani, tunnel e beverino inclusi.", "k81": "Cani · Snack", "k82": "Snack Dentali Naturali", "k83": "Aiutano a pulire i denti. Confezione da 28.", "k84": "💛 Chi siamo", "k85": "Siamo appassionati di animali (e si vede).", "k86": "Abbiamo iniziato come un piccolo negozio di quartiere e siamo cresciuti grazie a chi ci affida la propria famiglia a quattro zampe. Qui nessuno è solo un cliente.", "k87": "Consulenza specializzata", "k88": "Ti aiutiamo a scegliere l'alimentazione giusta per età, razza e salute.", "k89": "Prodotti sicuri e naturali", "k90": "Shampoo ipoallergenici e crocchette senza additivi inutili.", "k91": "Carta Cliente Patudo", "k92": "Accumula punti e ottieni il 10° bagno gratis.", "k93": "📸 Clienti a quattro zampe", "k94": "I nostri amici dopo la spa", "k95": "Condividi la foto del tuo amico con <b>#PatasEMimos</b> e apparirai qui!", "k96": "⭐ Recensioni", "k97": "Cosa dicono i padroni", "k98": "“Il mio Bolinhas aveva il terrore del bagno. Qui lo hanno trattato con tanta pazienza che ora entra scodinzolando!”", "k99": "“Mi hanno aiutato a scegliere le crocchette per la mia gatta con problemi renali. Servizio eccellente.”", "k100": "“Ordino le crocchette su WhatsApp e arrivano in giornata. Prezzi onesti e sempre un biscotto in regalo!”", "k101": "Padrona di Bolinhas", "k102": "Padrone di Mia", "k103": "Padrona di Rocky", "k104": "🛁 Prenotazioni", "k105": "Il tuo amico merita una giornata di spa.", "k106": "Prenota il bagno o la toelettatura in meno di 1 minuto su WhatsApp. Rispondiamo subito!", "k107": "💬 Prenota su WhatsApp", "k108": "📍 Vieni a trovarci", "k109": "Ti aspettiamo (con i biscotti!)", "k110": "Indirizzo", "k111": "Contatti", "k112": "Orari", "k113": "Dal lunedì al venerdì", "k114": "Sabato", "k115": "Domenica", "k116": "Chiuso", "k117": "Apri in Google Maps", "k118": "Pet shop, bagni e toelettatura. Tutto per cani, gatti, uccelli, pesci e roditori, con tanto affetto.", "k119": "Navigazione", "k120": "Seguici", "k121": "Prenotazioni", "k122": "Tutti i diritti riservati"}, "de": {"k0": "Tiere", "k1": "Leistungen", "k2": "Shop", "k3": "Über uns", "k4": "Kontakt", "k5": "Bad buchen", "k6": "🐶 Zoofachgeschäft im Viertel · seit 2012", "k7": "Alles, was Ihr <span>bester Freund</span> braucht – mit viel Liebe.", "k8": "Hochwertiges Futter, Zubehör, Spielzeug und ein Spa, aus dem Hunde und Katzen duftend und schwanzwedelnd herauskommen.", "k9": "🛁 Bad & Pflege buchen", "k10": "Zum Shop →", "k11": "Über 2.500 glückliche Vierbeiner", "k12": "⭐ 4,9 bei Google · 380 Bewertungen", "k13": "Bad & Pflege", "k14": "Heute noch Termine frei", "k15": "Gratis-Lieferung", "k16": "Ab 39 € Einkaufswert", "k17": "🐾 Für alle Vierbeiner", "k18": "Wählen Sie Ihren Liebling", "k19": "Hunde", "k20": "400+ Produkte", "k21": "Katzen", "k22": "300+ Produkte", "k23": "Vögel", "k24": "90+ Produkte", "k25": "Fische", "k26": "120+ Produkte", "k27": "Nager", "k28": "80+ Produkte", "k29": "✂️ Unsere Leistungen", "k30": "Spa, Pflege und viel Zuneigung", "k31": "Zertifizierte Fachleute, hypoallergene Produkte und alle Zeit der Welt, damit sich Ihr Liebling wie zu Hause fühlt.", "k32": "🛁 Bad", "k33": "Fellgerechtes Shampoo, Trocknen, Krallenschneiden und Ohrenreinigung.", "k34": "ab", "k35": "✂️ Hundefriseur", "k36": "Hygiene- oder Komplettschnitt, mit Schere oder Maschine, für alle Rassen.", "k37": "🏡 Tagesbetreuung & Hotel", "k38": "Spieltage und Aufenthalte mit Spaziergängen, Streicheleinheiten und täglichen Fotos für Sie.", "k39": "/Tag", "k40": "🚚 Lieferung nach Hause", "k41": "Futter und Streu am selben Tag vor Ihre Tür. Gratis ab 39 €.", "k42": "🛍️ Unser Shop", "k43": "Die Lieblinge unserer Kunden", "k44": "Vertrauenswürdige Marken und Beratung von Experten. Wir helfen Ihnen gern, das richtige Futter zu finden.", "k45": "Alle", "k46": "🐶 Hunde", "k47": "🐱 Katzen", "k48": "🦜 Vögel", "k49": "🐠 Fische", "k50": "🐹 Nager", "k51": "Neu", "k52": "Bestseller", "k53": "Komplett-Set", "k54": "Hunde · Futter", "k55": "Premium-Trockenfutter Adult 12 kg", "k56": "Mit Huhn und Reis, ohne Farbstoffe. Für mittelgroße Hunde.", "k57": "Hunde · Spielzeug", "k58": "Robustes Spielzeug-Set", "k59": "Seil, Ball und Knochen aus Naturkautschuk. Ideal zum Kauen.", "k60": "Katzen · Futter", "k61": "Futter für kastrierte Katzen 3 kg", "k62": "Reich an Lachs, hilft beim Gewicht und schützt die Harnwege.", "k63": "Katzen · Komfort", "k64": "Kratzbaum mit 3 Ebenen", "k65": "Mit Hängebett und Spielbällen. Das Schloss Ihrer Katze.", "k66": "Hunde · Gassi", "k67": "Komfort-Geschirr + Leine", "k68": "Gepolstert, reflektierend und verstellbar. Von XS bis XL.", "k69": "Katzen · Hygiene", "k70": "Klumpstreu 10 L", "k71": "Staubfrei, bindet Gerüche wochenlang.", "k72": "Vögel · Futter", "k73": "Premium-Saatenmischung", "k74": "Für Wellensittiche und Nymphensittiche, mit Früchten und Vitaminen.", "k75": "Fische · Aquarien", "k76": "Aquarium 60 L mit Filter und LED", "k77": "Sofort einsatzbereit. Wir helfen bei der Wahl der ersten Fische.", "k78": "Nager · Zuhause", "k79": "Hamsterkäfig mit Laufrad", "k80": "Zwei Etagen, Tunnel und Trinkflasche inklusive.", "k81": "Hunde · Snacks", "k82": "Natürliche Zahnpflege-Snacks", "k83": "Helfen bei der Zahnreinigung. Packung mit 28 Stück.", "k84": "💛 Über uns", "k85": "Wir lieben Tiere (und das merkt man).", "k86": "Wir haben als kleiner Laden im Viertel angefangen und sind dank allen gewachsen, die uns ihre vierbeinige Familie anvertrauen. Hier ist niemand nur irgendein Kunde.", "k87": "Fachkundige Beratung", "k88": "Wir helfen bei der Wahl des richtigen Futters für Alter, Rasse und Gesundheit.", "k89": "Sichere, natürliche Produkte", "k90": "Hypoallergene Shampoos und Futter ohne unnötige Zusätze.", "k91": "Patudo-Kundenkarte", "k92": "Punkte sammeln und das 10. Bad gratis erhalten.", "k93": "📸 Unsere vierbeinigen Kunden", "k94": "Unsere Freunde nach dem Spa", "k95": "Teilen Sie das Foto Ihres Lieblings mit <b>#PatasEMimos</b> und erscheinen Sie hier!", "k96": "⭐ Bewertungen", "k97": "Was Tierhalter sagen", "k98": "„Mein Bolinhas hatte panische Angst vor dem Baden. Hier wurde er so geduldig behandelt, dass er jetzt schwanzwedelnd hereinkommt!“", "k99": "„Sie haben mir geholfen, Futter für meine Katze mit Nierenproblemen zu finden. Hervorragender Service.“", "k100": "„Ich bestelle das Futter per WhatsApp und es kommt am selben Tag. Faire Preise und immer ein Leckerli gratis!“", "k101": "Frauchen von Bolinhas", "k102": "Herrchen von Mia", "k103": "Frauchen von Rocky", "k104": "🛁 Termine", "k105": "Ihr Liebling hat einen Spa-Tag verdient.", "k106": "Buchen Sie Bad oder Pflege in weniger als 1 Minute per WhatsApp. Wir antworten schnell!", "k107": "💬 Per WhatsApp buchen", "k108": "📍 Besuchen Sie uns", "k109": "Wir warten auf Sie (mit Leckerlis!)", "k110": "Adresse", "k111": "Kontakt", "k112": "Öffnungszeiten", "k113": "Montag bis Freitag", "k114": "Samstag", "k115": "Sonntag", "k116": "Geschlossen", "k117": "In Google Maps öffnen", "k118": "Zoofachgeschäft, Bad und Pflege. Alles für Hunde, Katzen, Vögel, Fische und Nager – mit viel Liebe.", "k119": "Navigation", "k120": "Folgen Sie uns", "k121": "Termine", "k122": "Alle Rechte vorbehalten"}, "uk": {"k0": "Тварини", "k1": "Послуги", "k2": "Магазин", "k3": "Про нас", "k4": "Контакти", "k5": "Записатися", "k6": "🐶 Зоомагазин по сусідству · з 2012 року", "k7": "Усе, що потрібно вашому <span>найкращому другові</span>, з великою любов'ю.", "k8": "Якісний корм, аксесуари, іграшки та спа, звідки собаки й коти виходять ароматними та радісно махають хвостом.", "k9": "🛁 Записатися на купання та стрижку", "k10": "До магазину →", "k11": "Понад 2 500 щасливих улюбленців", "k12": "⭐ 4,9 у Google · 380 відгуків", "k13": "Купання та стрижка", "k14": "Сьогодні є вільні місця", "k15": "Безкоштовна доставка", "k16": "Для замовлень від 39 €", "k17": "🐾 Для всіх улюбленців", "k18": "Оберіть свого друга", "k19": "Собаки", "k20": "400+ товарів", "k21": "Коти", "k22": "300+ товарів", "k23": "Птахи", "k24": "90+ товарів", "k25": "Риби", "k26": "120+ товарів", "k27": "Гризуни", "k28": "80+ товарів", "k29": "✂️ Наші послуги", "k30": "Спа, догляд і багато турботи", "k31": "Сертифіковані фахівці, гіпоалергенні засоби та скільки завгодно часу, щоб ваш улюбленець почувався як удома.", "k32": "🛁 Купання", "k33": "Шампунь відповідно до типу шерсті, сушіння, підстригання кігтів і чищення вух.", "k34": "від", "k35": "✂️ Стрижка", "k36": "Гігієнічна або повна стрижка, ножицями чи машинкою, для всіх порід.", "k37": "🏡 Дитсадок і готель", "k38": "Дні ігор і перебування з прогулянками, ласкою та щоденними фото для вас.", "k39": "/день", "k40": "🚚 Доставка додому", "k41": "Корм і наповнювач до ваших дверей у той самий день. Безкоштовно від 39 €.", "k42": "🛍️ Наш магазин", "k43": "Улюблене наших клієнтів", "k44": "Перевірені бренди та поради знавців. Звертайтеся — допоможемо обрати правильний корм.", "k45": "Усі", "k46": "🐶 Собаки", "k47": "🐱 Коти", "k48": "🦜 Птахи", "k49": "🐠 Риби", "k50": "🐹 Гризуни", "k51": "Новинка", "k52": "Хіт продажу", "k53": "Повний набір", "k54": "Собаки · Корм", "k55": "Преміум-корм для дорослих собак 12 кг", "k56": "З куркою та рисом, без барвників. Для собак середніх порід.", "k57": "Собаки · Іграшки", "k58": "Набір міцних іграшок", "k59": "Канат, м'яч і кістка з натурального каучуку. Ідеально для гризіння.", "k60": "Коти · Корм", "k61": "Корм для стерилізованих котів 3 кг", "k62": "Багатий на лосося, контролює вагу й захищає сечовивідні шляхи.", "k63": "Коти · Комфорт", "k64": "Кігтеточка-вежа на 3 рівні", "k65": "З підвісним лежаком і м'ячиками. Замок вашого кота.", "k66": "Собаки · Прогулянки", "k67": "Шлейка Комфорт + повідець", "k68": "М'яка, світловідбивна та регульована. Від XS до XL.", "k69": "Коти · Гігієна", "k70": "Грудкувальний наповнювач 10 л", "k71": "Без пилу, тижнями стримує запахи.", "k72": "Птахи · Корм", "k73": "Преміум-суміш насіння", "k74": "Для хвилястих папуг і корел, з фруктами та вітамінами.", "k75": "Риби · Акваріуми", "k76": "Акваріум 60 л з фільтром і LED", "k77": "Готовий до встановлення. Допоможемо обрати перших рибок.", "k78": "Гризуни · Житло", "k79": "Клітка для хом'яка з колесом", "k80": "Два поверхи, тунелі та поїлка в комплекті.", "k81": "Собаки · Ласощі", "k82": "Натуральні ласощі для зубів", "k83": "Допомагають чистити зуби. Упаковка 28 шт.", "k84": "💛 Про нас", "k85": "Ми закохані у тварин (і це помітно).", "k86": "Ми починали як невеликий магазин по сусідству і виросли завдяки тим, хто довіряє нам турботу про свою чотирилапу родину. Тут ніхто не є просто черговим клієнтом.", "k87": "Фахові консультації", "k88": "Допомагаємо обрати корм відповідно до віку, породи та здоров'я.", "k89": "Безпечні й натуральні товари", "k90": "Гіпоалергенні шампуні та корми без зайвих добавок.", "k91": "Картка клієнта Patudo", "k92": "Накопичуйте бали й отримайте 10-те купання безкоштовно.", "k93": "📸 Чотирилапі клієнти", "k94": "Наші друзі після спа", "k95": "Поділіться фото свого улюбленця з <b>#PatasEMimos</b> і з'явіться тут!", "k96": "⭐ Відгуки", "k97": "Що кажуть власники", "k98": "«Мій Bolinhas страшенно боявся купання. Тут з ним поводилися так терпляче, що тепер він заходить, махаючи хвостом!»", "k99": "«Мені допомогли обрати корм для моєї кішки з проблемами нирок. Чудове обслуговування.»", "k100": "«Замовляю корм у WhatsApp, і він приходить того ж дня. Чесні ціни й завжди смаколик у подарунок!»", "k101": "Власниця Bolinhas", "k102": "Власник Mia", "k103": "Власниця Rocky", "k104": "🛁 Запис", "k105": "Ваш улюбленець заслуговує на спа-день.", "k106": "Запишіться на купання чи стрижку менш ніж за 1 хвилину у WhatsApp. Відповідаємо швидко!", "k107": "💬 Записатися у WhatsApp", "k108": "📍 Завітайте до нас", "k109": "Чекаємо на вас (і з ласощами!)", "k110": "Адреса", "k111": "Контакти", "k112": "Години роботи", "k113": "Понеділок – п'ятниця", "k114": "Субота", "k115": "Неділя", "k116": "Зачинено", "k117": "Відкрити в Google Maps", "k118": "Зоомагазин, купання та стрижка. Усе для собак, котів, птахів, риб і гризунів — з великою любов'ю.", "k119": "Навігація", "k120": "Ми в соцмережах", "k121": "Запис", "k122": "Усі права захищено"}, "ru": {"k0": "Животные", "k1": "Услуги", "k2": "Магазин", "k3": "О нас", "k4": "Контакты", "k5": "Записаться", "k6": "🐶 Зоомагазин по соседству · с 2012 года", "k7": "Всё, что нужно вашему <span>лучшему другу</span>, с большой любовью.", "k8": "Качественный корм, аксессуары, игрушки и спа, откуда собаки и кошки уходят ароматными и радостно виляя хвостом.", "k9": "🛁 Записаться на мытьё и стрижку", "k10": "В магазин →", "k11": "Более 2 500 счастливых питомцев", "k12": "⭐ 4,9 в Google · 380 отзывов", "k13": "Мытьё и стрижка", "k14": "Сегодня есть свободные места", "k15": "Бесплатная доставка", "k16": "При заказе от 39 €", "k17": "🐾 Для всех питомцев", "k18": "Выберите своего друга", "k19": "Собаки", "k20": "400+ товаров", "k21": "Кошки", "k22": "300+ товаров", "k23": "Птицы", "k24": "90+ товаров", "k25": "Рыбы", "k26": "120+ товаров", "k27": "Грызуны", "k28": "80+ товаров", "k29": "✂️ Наши услуги", "k30": "Спа, уход и много заботы", "k31": "Сертифицированные специалисты, гипоаллергенные средства и сколько угодно времени, чтобы ваш питомец чувствовал себя как дома.", "k32": "🛁 Мытьё", "k33": "Шампунь по типу шерсти, сушка, стрижка когтей и чистка ушей.", "k34": "от", "k35": "✂️ Стрижка", "k36": "Гигиеническая или полная стрижка, ножницами или машинкой, для всех пород.", "k37": "🏡 Детский сад и гостиница", "k38": "Дни игр и проживание с прогулками, лаской и ежедневными фото для вас.", "k39": "/день", "k40": "🚚 Доставка на дом", "k41": "Корм и наполнитель к вашей двери в тот же день. Бесплатно от 39 €.", "k42": "🛍️ Наш магазин", "k43": "Любимое наших клиентов", "k44": "Проверенные бренды и советы знатоков. Обращайтесь — поможем выбрать правильный корм.", "k45": "Все", "k46": "🐶 Собаки", "k47": "🐱 Кошки", "k48": "🦜 Птицы", "k49": "🐠 Рыбы", "k50": "🐹 Грызуны", "k51": "Новинка", "k52": "Хит продаж", "k53": "Полный набор", "k54": "Собаки · Корм", "k55": "Премиум-корм для взрослых собак 12 кг", "k56": "С курицей и рисом, без красителей. Для собак средних пород.", "k57": "Собаки · Игрушки", "k58": "Набор прочных игрушек", "k59": "Канат, мяч и кость из натурального каучука. Идеально для грызения.", "k60": "Кошки · Корм", "k61": "Корм для стерилизованных кошек 3 кг", "k62": "Богат лососем, контролирует вес и защищает мочевыводящие пути.", "k63": "Кошки · Комфорт", "k64": "Когтеточка-башня в 3 уровня", "k65": "С подвесным лежаком и мячиками. Замок вашей кошки.", "k66": "Собаки · Прогулки", "k67": "Шлейка Комфорт + поводок", "k68": "Мягкая, светоотражающая и регулируемая. От XS до XL.", "k69": "Кошки · Гигиена", "k70": "Комкующийся наполнитель 10 л", "k71": "Без пыли, неделями сдерживает запахи.", "k72": "Птицы · Корм", "k73": "Премиум-смесь семян", "k74": "Для волнистых попугаев и корелл, с фруктами и витаминами.", "k75": "Рыбы · Аквариумы", "k76": "Аквариум 60 л с фильтром и LED", "k77": "Готов к установке. Поможем выбрать первых рыбок.", "k78": "Грызуны · Жильё", "k79": "Клетка для хомяка с колесом", "k80": "Два этажа, туннели и поилка в комплекте.", "k81": "Собаки · Лакомства", "k82": "Натуральные лакомства для зубов", "k83": "Помогают чистить зубы. Упаковка 28 шт.", "k84": "💛 О нас", "k85": "Мы обожаем животных (и это заметно).", "k86": "Мы начинали как небольшой магазин по соседству и выросли благодаря тем, кто доверяет нам заботу о своей четвероногой семье. Здесь никто не просто очередной клиент.", "k87": "Профессиональные консультации", "k88": "Поможем выбрать корм с учётом возраста, породы и здоровья.", "k89": "Безопасные и натуральные товары", "k90": "Гипоаллергенные шампуни и корма без лишних добавок.", "k91": "Карта клиента Patudo", "k92": "Копите баллы и получите 10-е мытьё бесплатно.", "k93": "📸 Четвероногие клиенты", "k94": "Наши друзья после спа", "k95": "Поделитесь фото своего питомца с <b>#PatasEMimos</b> и попадите сюда!", "k96": "⭐ Отзывы", "k97": "Что говорят владельцы", "k98": "«Мой Bolinhas ужасно боялся мытья. Здесь с ним обращались так терпеливо, что теперь он заходит, виляя хвостом!»", "k99": "«Мне помогли выбрать корм для моей кошки с проблемами почек. Отличное обслуживание.»", "k100": "«Заказываю корм в WhatsApp, и он приходит в тот же день. Честные цены и всегда лакомство в подарок!»", "k101": "Хозяйка Bolinhas", "k102": "Хозяин Mia", "k103": "Хозяйка Rocky", "k104": "🛁 Запись", "k105": "Ваш питомец заслуживает спа-дня.", "k106": "Запишитесь на мытьё или стрижку меньше чем за 1 минуту в WhatsApp. Отвечаем быстро!", "k107": "💬 Записаться в WhatsApp", "k108": "📍 Ждём в гости", "k109": "Ждём вас (и с лакомствами!)", "k110": "Адрес", "k111": "Контакты", "k112": "Часы работы", "k113": "Понедельник – пятница", "k114": "Суббота", "k115": "Воскресенье", "k116": "Закрыто", "k117": "Открыть в Google Maps", "k118": "Зоомагазин, мытьё и стрижка. Всё для собак, кошек, птиц, рыб и грызунов — с большой любовью.", "k119": "Навигация", "k120": "Мы в соцсетях", "k121": "Запись", "k122": "Все права защищены"}, "ja": {"k0": "ペット", "k1": "サービス", "k2": "ショップ", "k3": "私たちについて", "k4": "お問い合わせ", "k5": "シャンプー予約", "k6": "🐶 街のペットショップ · 2012年創業", "k7": "あなたの<span>大切な家族</span>に必要なものを、愛情たっぷりに。", "k8": "良質なフード、アクセサリー、おもちゃ、そして犬や猫がいい香りでしっぽを振って帰れるスパ。", "k9": "🛁 シャンプー&トリミングを予約", "k10": "ショップを見る →", "k11": "2,500匹以上の幸せなペット", "k12": "⭐ Google評価 4.9 · 380件のレビュー", "k13": "シャンプー&トリミング", "k14": "本日空きあり", "k15": "送料無料", "k16": "39 €以上のご購入で", "k17": "🐾 すべてのペットのために", "k18": "お友だちを選んでください", "k19": "犬", "k20": "400点以上", "k21": "猫", "k22": "300点以上", "k23": "鳥", "k24": "90点以上", "k25": "魚", "k26": "120点以上", "k27": "小動物", "k28": "80点以上", "k29": "✂️ サービス", "k30": "スパ、ケア、たっぷりの愛情", "k31": "資格を持つプロ、低刺激の製品、そしてペットが我が家のようにくつろげるたっぷりの時間。", "k32": "🛁 シャンプー", "k33": "毛質に合ったシャンプー、ドライ、爪切り、耳掃除。", "k34": "料金", "k35": "✂️ トリミング", "k36": "衛生カットまたはフルカット、ハサミでもバリカンでも、全犬種に対応。", "k37": "🏡 デイケア&ホテル", "k38": "お散歩、スキンシップ、毎日の写真付きの遊びの日やお泊まり。", "k39": "/日", "k40": "🚚 宅配", "k41": "フードや猫砂を当日お届け。39 €以上で送料無料。", "k42": "🛍️ ショップ", "k43": "お客様に人気の商品", "k44": "信頼できるブランドと専門家のアドバイス。最適なフード選びをお手伝いします。", "k45": "すべて", "k46": "🐶 犬", "k47": "🐱 猫", "k48": "🦜 鳥", "k49": "🐠 魚", "k50": "🐹 小動物", "k51": "新商品", "k52": "売れ筋", "k53": "フルセット", "k54": "犬 · フード", "k55": "プレミアム成犬用ドライフード 12 kg", "k56": "チキンとライス、着色料不使用。中型犬用。", "k57": "犬 · おもちゃ", "k58": "丈夫なおもちゃセット", "k59": "ロープ、ボール、天然ゴムの骨。噛むのに最適。", "k60": "猫 · フード", "k61": "避妊・去勢猫用フード 3 kg", "k62": "サーモンたっぷり、体重管理と尿路の健康をサポート。", "k63": "猫 · 快適グッズ", "k64": "3段キャットタワー", "k65": "吊り下げベッドとボール付き。猫ちゃんのお城。", "k66": "犬 · お散歩", "k67": "コンフォートハーネス+リード", "k68": "クッション付き、反射材、サイズ調整可能。XS〜XL。", "k69": "猫 · 衛生用品", "k70": "固まる猫砂 10 L", "k71": "粉じんが少なく、何週間もニオイを抑えます。", "k72": "鳥 · フード", "k73": "プレミアムシードミックス", "k74": "セキセイインコやオカメインコに。フルーツとビタミン入り。", "k75": "魚 · 水槽", "k76": "60 L水槽 フィルター&LED付き", "k77": "すぐに設置可能。最初の魚選びもお手伝いします。", "k78": "小動物 · ハウス", "k79": "回し車付きハムスターケージ", "k80": "2階建て、トンネルと給水ボトル付き。", "k81": "犬 · おやつ", "k82": "天然デンタルおやつ", "k83": "歯の汚れ落としに。28本入り。", "k84": "💛 私たちについて", "k85": "動物が大好きです(見ればわかります)。", "k86": "小さな街のお店から始まり、四本足の家族を任せてくださる皆さまのおかげで成長してきました。ここではお客様一人ひとりを大切にしています。", "k87": "専門的なアドバイス", "k88": "年齢、品種、健康状態に合ったフード選びをお手伝いします。", "k89": "安全で自然な製品", "k90": "低刺激シャンプーと余計な添加物を使わないフード。", "k91": "パトゥード会員カード", "k92": "ポイントを貯めて10回目のシャンプーが無料に。", "k93": "📸 四本足のお客様", "k94": "スパ後のお友だち", "k95": "<b>#PatasEMimos</b> を付けてペットの写真をシェアすると、ここに掲載されるかも!", "k96": "⭐ レビュー", "k97": "飼い主さんの声", "k98": "「うちのBolinhasはお風呂が大の苦手でした。ここではとても辛抱強く接してくれて、今ではしっぽを振って入っていきます!」", "k99": "「腎臓に問題のある猫のフード選びを手伝ってもらいました。素晴らしい対応です。」", "k100": "「WhatsAppでフードを注文すると当日に届きます。良心的な価格で、いつもおやつのおまけ付き!」", "k101": "Bolinhasの飼い主", "k102": "Miaの飼い主", "k103": "Rockyの飼い主", "k104": "🛁 ご予約", "k105": "あなたのペットにスパの一日を。", "k106": "WhatsAppでシャンプーやトリミングを1分以内に予約。すぐにお返事します!", "k107": "💬 WhatsAppで予約", "k108": "📍 アクセス", "k109": "おやつを用意してお待ちしています!", "k110": "住所", "k111": "連絡先", "k112": "営業時間", "k113": "月曜日〜金曜日", "k114": "土曜日", "k115": "日曜日", "k116": "定休日", "k117": "Googleマップで開く", "k118": "ペットショップ、シャンプー、トリミング。犬、猫、鳥、魚、小動物のためのすべてを愛情込めて。", "k119": "メニュー", "k120": "フォローする", "k121": "ご予約", "k122": "無断転載禁止"}, "zh": {"k0": "宠物", "k1": "服务", "k2": "商店", "k3": "关于我们", "k4": "联系我们", "k5": "预约洗澡", "k6": "🐶 社区宠物店 · 始于2012年", "k7": "您的<span>最好的朋友</span>所需的一切,满满的爱。", "k8": "优质食品、配件、玩具,还有让猫狗香喷喷、摇着尾巴离开的宠物水疗。", "k9": "🛁 预约洗澡和美容", "k10": "逛逛商店 →", "k11": "超过2500只快乐的毛孩子", "k12": "⭐ Google评分4.9 · 380条评价", "k13": "洗澡和美容", "k14": "今天有空位", "k15": "免费配送", "k16": "购物满39 €", "k17": "🐾 为所有毛孩子", "k18": "选择您的朋友", "k19": "狗狗", "k20": "400+件商品", "k21": "猫咪", "k22": "300+件商品", "k23": "鸟类", "k24": "90+件商品", "k25": "鱼类", "k26": "120+件商品", "k27": "小宠", "k28": "80+件商品", "k29": "✂️ 我们的服务", "k30": "水疗、护理和满满的关爱", "k31": "持证专业人员、低敏产品,以及充足的时间让您的宠物像在家一样自在。", "k32": "🛁 洗澡", "k33": "适合毛发的洗毛液、吹干、剪指甲和清洁耳朵。", "k34": "起价", "k35": "✂️ 美容修剪", "k36": "卫生修剪或全身修剪,剪刀或电推,适合所有品种。", "k37": "🏡 日托和寄养", "k38": "玩耍日和寄宿,包括散步、陪伴,每天为您发送照片。", "k39": "/天", "k40": "🚚 送货上门", "k41": "粮食和猫砂当天送到家门口。满39 €免运费。", "k42": "🛍️ 我们的商店", "k43": "顾客最爱", "k44": "值得信赖的品牌和专业建议。让我们帮您挑选合适的粮食。", "k45": "全部", "k46": "🐶 狗狗", "k47": "🐱 猫咪", "k48": "🦜 鸟类", "k49": "🐠 鱼类", "k50": "🐹 小宠", "k51": "新品", "k52": "热销", "k53": "全套装", "k54": "狗狗 · 主粮", "k55": "高端成犬粮 12 kg", "k56": "鸡肉配米饭,无色素。适合中型犬。", "k57": "狗狗 · 玩具", "k58": "耐咬玩具套装", "k59": "绳结、球和天然橡胶骨头。非常适合啃咬。", "k60": "猫咪 · 主粮", "k61": "绝育猫粮 3 kg", "k62": "富含三文鱼,控制体重并保护泌尿道。", "k63": "猫咪 · 舒适", "k64": "三层猫爬架", "k65": "带吊床和小球。猫咪的城堡。", "k66": "狗狗 · 出行", "k67": "舒适胸背带 + 牵引绳", "k68": "加垫、反光、可调节。XS至XL。", "k69": "猫咪 · 清洁", "k70": "结团猫砂 10 L", "k71": "无粉尘,数周有效控制异味。", "k72": "鸟类 · 饲料", "k73": "高级混合种子", "k74": "适合虎皮鹦鹉和玄凤鹦鹉,含水果和维生素。", "k75": "鱼类 · 鱼缸", "k76": "60 L鱼缸(含过滤器和LED)", "k77": "即装即用。我们帮您挑选第一批鱼。", "k78": "小宠 · 住所", "k79": "带跑轮的仓鼠笼", "k80": "双层设计,含隧道和饮水器。", "k81": "狗狗 · 零食", "k82": "天然洁齿零食", "k83": "帮助清洁牙齿。每包28支。", "k84": "💛 关于我们", "k85": "我们热爱动物(这一点显而易见)。", "k86": "我们从一家小小的社区商店起步,因为大家放心把四条腿的家人交给我们而不断成长。在这里,每位顾客都很特别。", "k87": "专业建议", "k88": "根据年龄、品种和健康状况,帮您选择合适的食物。", "k89": "安全天然的产品", "k90": "低敏洗毛液和不含多余添加剂的粮食。", "k91": "Patudo会员卡", "k92": "累积积分,第10次洗澡免费。", "k93": "📸 四条腿的顾客", "k94": "水疗后的朋友们", "k95": "带上 <b>#PatasEMimos</b> 分享您宠物的照片,就有机会出现在这里!", "k96": "⭐ 评价", "k97": "主人们怎么说", "k98": "“我的Bolinhas以前特别怕洗澡。这里的人非常有耐心,现在它都摇着尾巴进门!”", "k99": "“他们帮我为患肾病的猫挑选了粮食。服务一流。”", "k100": "“我通过WhatsApp订粮,当天就送到。价格公道,还总送一块小零食!”", "k101": "Bolinhas的主人", "k102": "Mia的主人", "k103": "Rocky的主人", "k104": "🛁 预约", "k105": "您的宠物值得享受一天水疗。", "k106": "通过WhatsApp不到1分钟即可预约洗澡或美容。我们回复很快!", "k107": "💬 通过WhatsApp预约", "k108": "📍 欢迎光临", "k109": "我们在等您(还备好了零食!)", "k110": "地址", "k111": "联系方式", "k112": "营业时间", "k113": "周一至周五", "k114": "周六", "k115": "周日", "k116": "休息", "k117": "在Google地图中打开", "k118": "宠物店、洗澡和美容。为狗狗、猫咪、鸟类、鱼类和小宠提供一切,满怀爱心。", "k119": "导航", "k120": "关注我们", "k121": "预约", "k122": "版权所有"}};
+  const LANG_FLAGS = {"pt": "https://flagcdn.com/w40/pt.png", "en": "https://flagcdn.com/w40/gb.png", "es": "https://flagcdn.com/w40/es.png", "fr": "https://flagcdn.com/w40/fr.png", "it": "https://flagcdn.com/w40/it.png", "de": "https://flagcdn.com/w40/de.png", "uk": "https://flagcdn.com/w40/ua.png", "ru": "https://flagcdn.com/w40/ru.png", "ja": "https://flagcdn.com/w40/jp.png", "zh": "https://flagcdn.com/w40/cn.png"};
+  const ptText = {};
+  document.querySelectorAll('[data-i18n]').forEach(el => { ptText[el.dataset.i18n] = el.innerHTML; });
+  const langBox = document.getElementById('lang');
+  function setLang(lang) {
+    if (lang !== 'pt' && !I18N[lang]) lang = 'pt';
+    const dict = I18N[lang] || {};
+    document.querySelectorAll('[data-i18n]').forEach(el => { const k = el.dataset.i18n; el.innerHTML = dict[k] ?? ptText[k]; });
+    document.documentElement.lang = lang === 'pt' ? 'pt-PT' : lang;
+    document.getElementById('langFlag').src = LANG_FLAGS[lang];
+    document.getElementById('langCode').textContent = lang.toUpperCase();
+    document.querySelectorAll('#langMenu button').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+    try { localStorage.setItem('lang', lang); } catch (e) {}
+  }
+  document.getElementById('langBtn').addEventListener('click', e => {
+    e.stopPropagation();
+    const open = langBox.classList.toggle('open');
+    e.currentTarget.setAttribute('aria-expanded', open);
+  });
+  document.querySelectorAll('#langMenu button').forEach(b => b.addEventListener('click', () => { setLang(b.dataset.lang); langBox.classList.remove('open'); }));
+  document.addEventListener('click', () => langBox.classList.remove('open'));
+  let saved = null;
+  try { saved = localStorage.getItem('lang'); } catch (e) {}
+  setLang(saved || (navigator.language || 'pt').slice(0, 2));
+</script>
+</body>
+</html>
